@@ -1,56 +1,48 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { ClipboardModule } from 'ngx-clipboard';
-import { TranslateModule } from '@ngx-translate/core';
-import { InlineSVGModule } from 'ng-inline-svg';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { FormsModule } from '@angular/forms'
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthService } from './modules/auth/services/auth.service';
-import { environment } from 'src/environments/environment';
-// #fake-start#
-import { FakeAPIService } from './_fake/fake-api.service';
-// #fake-end#
 
-function appInitializer(authService: AuthService) {
-  return () => {
-    return new Promise((resolve) => {
-      authService.getUserByToken().subscribe().add(resolve);
-    });
-  };
-}
+import { TemplateModule } from './template/template.module';
+import { HomeComponent } from './home/home.component'
+import { ClientesModule } from './clientes/clientes.module';
+import { ClientesService } from './clientes.service'
+import { ServicoPrestadoModule } from './servico-prestado/servico-prestado.module'
+import { ServicoPrestadoService } from './servico-prestado.service';
+import { LoginComponent } from './login/login.component';
+import { LayoutComponent } from './layout/layout.component'
+import { AuthService } from './auth.service';
+import { TokenInterceptor } from './token.interceptor';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    LayoutComponent
+  ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    TranslateModule.forRoot(),
+    FormsModule,
     HttpClientModule,
-    ClipboardModule,
-    // #fake-start#
-    environment.isMockEnabled
-      ? HttpClientInMemoryWebApiModule.forRoot(FakeAPIService, {
-          passThruUnknownUrl: true,
-          dataEncapsulation: false,
-        })
-      : [],
-    // #fake-end#
     AppRoutingModule,
-    InlineSVGModule.forRoot(),
-    NgbModule,
+    TemplateModule,
+    ClientesModule,
+    ServicoPrestadoModule
   ],
   providers: [
+    ClientesService,
+    ServicoPrestadoService,
+    AuthService,
     {
-      provide: APP_INITIALIZER,
-      useFactory: appInitializer,
-      multi: true,
-      deps: [AuthService],
-    },
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

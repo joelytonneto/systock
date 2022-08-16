@@ -1,29 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './modules/auth/services/auth.guard';
+import { HomeComponent } from './home/home.component'
+import { LoginComponent } from './login/login.component';
+import { LayoutComponent } from './layout/layout.component';
+import { AuthGuard } from './auth.guard'
 
-export const routes: Routes = [
-  {
-    path: 'auth',
-    loadChildren: () =>
-      import('./modules/auth/auth.module').then((m) => m.AuthModule),
-  },
-  {
-    path: 'error',
-    loadChildren: () =>
-      import('./modules/errors/errors.module').then((m) => m.ErrorsModule),
-  },
-  {
-    path: '',
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./_metronic/layout/layout.module').then((m) => m.LayoutModule),
-  },
-  { path: '**', redirectTo: 'error/404' },
+const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: '', component: LayoutComponent, children: [
+    { path : 'home', component: HomeComponent, canActivate : [AuthGuard] },
+    { path: '' , redirectTo: '/home', pathMatch: 'full' }
+  ]}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
