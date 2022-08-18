@@ -1,4 +1,4 @@
-package io.github.dougllasfps.clientes.config;
+package io.github.joelytonneto.systock.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

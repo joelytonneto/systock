@@ -1,4 +1,4 @@
-package io.github.dougllasfps.clientes.config;
+package io.github.joelytonneto.systock.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

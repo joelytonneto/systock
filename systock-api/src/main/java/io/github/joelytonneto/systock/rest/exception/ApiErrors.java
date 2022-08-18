@@ -1,4 +1,4 @@
-package io.github.dougllasfps.clientes.rest.exception;
+package io.github.joelytonneto.systock.rest.exception;
 
 import lombok.Getter;
 

@@ -53,7 +53,7 @@ export class ClientesFormComponent implements OnInit {
             this.success = true;
             this.errors = null;
         }, errorResponse => {
-          this.errors = ['Erro ao atualizar o cliente.']
+          this.errors = errorResponse.error.errors
         })
 
 

@@ -1,4 +1,4 @@
-package io.github.dougllasfps.clientes.model.entity;
+package io.github.joelytonneto.systock.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

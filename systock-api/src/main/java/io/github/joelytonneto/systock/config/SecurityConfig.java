@@ -1,6 +1,5 @@
-package io.github.dougllasfps.clientes.config;
+package io.github.joelytonneto.systock.config;
 
-import io.github.dougllasfps.clientes.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.proxy.NoOp;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +13,8 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+
+import io.github.joelytonneto.systock.service.UsuarioService;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

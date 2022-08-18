@@ -1,4 +1,4 @@
-package io.github.dougllasfps.clientes.util;
+package io.github.joelytonneto.systock.util;
 
 import org.springframework.stereotype.Component;
 

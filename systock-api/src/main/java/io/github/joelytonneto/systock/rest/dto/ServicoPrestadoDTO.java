@@ -1,4 +1,4 @@
-package io.github.dougllasfps.clientes.rest.dto;
+package io.github.joelytonneto.systock.rest.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package io.github.dougllasfps.clientes.model.entity;
+package io.github.joelytonneto.systock.model.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

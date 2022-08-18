@@ -1,4 +1,4 @@
-package io.github.dougllasfps.clientes.config;
+package io.github.joelytonneto.systock.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

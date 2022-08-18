@@ -2,7 +2,7 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">{{ cliente.id ? 'Edição' : 'Cadastro' }}</li>
 </ol>
-<div class="container">
+<div class="container-fluid">
     <form #clienteForm="ngForm" (ngSubmit)="onSubmit()" >
 
         <div class="row">
@@ -34,23 +34,110 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="form-group">
                     <label>Nome: *</label>
                     <input type="text" class="form-control" 
                            [(ngModel)]="cliente.nome" name="nome"   />
                 </div>
             </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>CPF:</label>
+                    <input type="text" class="form-control" 
+                           [(ngModel)]="cliente.cpf" name="cpf"   />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Data de Nascimento:</label>
+                    <input type="date" class="form-control" 
+                            [(ngModel)]="cliente.dataNascimento" name="nascimento"  />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Celular: *</label>
+                    <input type="text" class="form-control" 
+                            [(ngModel)]="cliente.celular" name="celular"  />
+                </div>
+            </div>           
+                        
+        </div>        
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Cep:</label>
+                    <input type="text" class="form-control" 
+                            [(ngModel)]="cliente.cep" name="cep"  />
+                </div>
+            </div>            
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>CPF: *</label>
+                    <label>Endereço: *</label>
                     <input type="text" class="form-control" 
-                            [(ngModel)]="cliente.cpf" name="cpf"  />
+                            [(ngModel)]="cliente.endereco" name="endereco"  />
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label>Nº: *</label>
+                    <input type="text" class="form-control" 
+                           [(ngModel)]="cliente.numero" name="numero"   />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Complemento:</label>
+                    <input type="text" class="form-control" 
+                           [(ngModel)]="cliente.complemento" name="complemento"   />
                 </div>
             </div>
         </div>
 
         <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Bairro: *</label>
+                    <input type="text" class="form-control" 
+                           [(ngModel)]="cliente.bairro" name="bairro"   />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Cidade:</label>
+                    <input type="text" class="form-control" 
+                           [(ngModel)]="cliente.cidade" name="cidade"   />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>UF:</label>
+                    <input type="text" class="form-control" 
+                            [(ngModel)]="cliente.uf" name="uf"  />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Ativo?</label>
+                    <div class="form-check">
+                        <input class="form-check-input largerCheckbox" type="checkbox" id="ativo" [(ngModel)]="cliente.ativo" name="ativo">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="observacoesTextarea">Observações:</label>
+                    <textarea class="form-control" id="observacoesTextarea" rows="3" [(ngModel)]="cliente.observacoes" name="observacoes"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-2">
             <div class="col-md-3">
                 <button type="submit" class="btn btn-success" *ngIf="!cliente.id">
                     <i class="fa fa-save" ></i> Salvar
@@ -60,7 +147,7 @@
                     <i class="fa fa-sync-alt" ></i> Atualizar
                 </button>
 
-                <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">
+                <button type="button" class="btn btn-danger ml-3" (click)="voltarParaListagem()">
                     <i class="fa fa-arrow-alt-circle-left" ></i> Voltar
                 </button>
             </div>

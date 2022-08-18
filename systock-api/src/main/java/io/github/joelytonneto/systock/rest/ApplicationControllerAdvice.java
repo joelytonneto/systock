@@ -1,6 +1,5 @@
-package io.github.dougllasfps.clientes.rest;
+package io.github.joelytonneto.systock.rest;
 
-import io.github.dougllasfps.clientes.rest.exception.ApiErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
+
+import io.github.joelytonneto.systock.rest.exception.ApiErrors;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,7 +1,8 @@
-package io.github.dougllasfps.clientes.model.repository;
+package io.github.joelytonneto.systock.model.repository;
 
-import io.github.dougllasfps.clientes.model.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import io.github.joelytonneto.systock.model.entity.Usuario;
 
 import java.util.Optional;
 

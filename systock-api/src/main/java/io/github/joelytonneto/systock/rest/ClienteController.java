@@ -1,11 +1,12 @@
-package io.github.dougllasfps.clientes.rest;
+package io.github.joelytonneto.systock.rest;
 
-import io.github.dougllasfps.clientes.model.entity.Cliente;
-import io.github.dougllasfps.clientes.model.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import io.github.joelytonneto.systock.model.entity.Cliente;
+import io.github.joelytonneto.systock.model.repository.ClienteRepository;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -60,6 +61,17 @@ public class ClienteController {
                 .map( cliente -> {
                     cliente.setNome(clienteAtualizado.getNome());
                     cliente.setCpf(clienteAtualizado.getCpf());
+                    cliente.setDataNascimento(clienteAtualizado.getDataNascimento());
+                    cliente.setCelular(clienteAtualizado.getCelular());
+                    cliente.setCep(clienteAtualizado.getCep());
+                    cliente.setEndereco(clienteAtualizado.getEndereco());
+                    cliente.setNumero(clienteAtualizado.getNumero());
+                    cliente.setComplemento(clienteAtualizado.getComplemento());
+                    cliente.setBairro(clienteAtualizado.getBairro());
+                    cliente.setCidade(clienteAtualizado.getCidade());
+                    cliente.setUf(clienteAtualizado.getUf());
+                    cliente.setAtivo(clienteAtualizado.isAtivo());
+                    cliente.setObservacoes(clienteAtualizado.getObservacoes());
                     return repository.save(cliente);
                 })
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado") );

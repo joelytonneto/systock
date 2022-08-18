@@ -1,4 +1,4 @@
-package io.github.dougllasfps.clientes.exception;
+package io.github.joelytonneto.systock.exception;
 
 public class UsuarioCadastradoException extends RuntimeException {
 

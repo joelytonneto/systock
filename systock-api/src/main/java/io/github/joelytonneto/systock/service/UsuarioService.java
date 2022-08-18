@@ -1,14 +1,15 @@
-package io.github.dougllasfps.clientes.service;
+package io.github.joelytonneto.systock.service;
 
-import io.github.dougllasfps.clientes.exception.UsuarioCadastradoException;
-import io.github.dougllasfps.clientes.model.entity.Usuario;
-import io.github.dougllasfps.clientes.model.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import io.github.joelytonneto.systock.exception.UsuarioCadastradoException;
+import io.github.joelytonneto.systock.model.entity.Usuario;
+import io.github.joelytonneto.systock.model.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService implements UserDetailsService {

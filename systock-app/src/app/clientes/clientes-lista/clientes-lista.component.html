@@ -2,7 +2,7 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Consulta</li>
 </ol>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
 
@@ -31,7 +31,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
-                        <th>CPF</th>
+                        <th>Endereço</th>
+                        <th>Celular</th>
                         <th>Data Cadastro</th>
                         <th></th>
                     </tr>
@@ -40,7 +41,8 @@
                     <tr *ngFor="let cliente of clientes">
                         <td>{{ cliente.id }}</td>
                         <td>{{ cliente.nome }}</td>
-                        <td>{{ cliente.cpf }}</td>
+                        <td>{{ cliente.endereco }}</td>
+                        <td>{{ cliente.celular }}</td>
                         <td>{{ cliente.dataCadastro }}</td>
                         <td>
                             <button class="btn btn-primary" 

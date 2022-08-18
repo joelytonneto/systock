@@ -1,13 +1,14 @@
-package io.github.dougllasfps.clientes.rest;
+package io.github.joelytonneto.systock.rest;
 
-import io.github.dougllasfps.clientes.exception.UsuarioCadastradoException;
-import io.github.dougllasfps.clientes.model.entity.Usuario;
-import io.github.dougllasfps.clientes.model.repository.UsuarioRepository;
-import io.github.dougllasfps.clientes.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import io.github.joelytonneto.systock.exception.UsuarioCadastradoException;
+import io.github.joelytonneto.systock.model.entity.Usuario;
+import io.github.joelytonneto.systock.model.repository.UsuarioRepository;
+import io.github.joelytonneto.systock.service.UsuarioService;
 
 import javax.validation.Valid;
 

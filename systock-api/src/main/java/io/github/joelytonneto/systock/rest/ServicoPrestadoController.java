@@ -1,16 +1,17 @@
-package io.github.dougllasfps.clientes.rest;
+package io.github.joelytonneto.systock.rest;
 
-import io.github.dougllasfps.clientes.model.entity.Cliente;
-import io.github.dougllasfps.clientes.model.entity.ServicoPrestado;
-import io.github.dougllasfps.clientes.model.repository.ClienteRepository;
-import io.github.dougllasfps.clientes.model.repository.ServicoPrestadoRepository;
-import io.github.dougllasfps.clientes.rest.dto.ServicoPrestadoDTO;
-import io.github.dougllasfps.clientes.util.BigDecimalConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import io.github.joelytonneto.systock.model.entity.Cliente;
+import io.github.joelytonneto.systock.model.entity.ServicoPrestado;
+import io.github.joelytonneto.systock.model.repository.ClienteRepository;
+import io.github.joelytonneto.systock.model.repository.ServicoPrestadoRepository;
+import io.github.joelytonneto.systock.rest.dto.ServicoPrestadoDTO;
+import io.github.joelytonneto.systock.util.BigDecimalConverter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
