@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router'
 
-import { Cliente } from '../cliente'
-import { ClientesService } from '../clientes.service'; 
+import { Produto } from '../produto';
+import { ProdutosService } from '../produtos.service'; 
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-clientes-form',
-  templateUrl: './clientes-form.component.html',
-  styleUrls: ['./clientes-form.component.css']
+  selector: 'app-produtos-form',
+  templateUrl: './produtos-form.component.html',
+  styleUrls: ['./produtos-form.component.css']
 })
-export class ClientesFormComponent implements OnInit {
+export class ProdutosFormComponent implements OnInit {
 
-  cliente: Cliente;
+  produto: Produto;
   success: boolean = false;
   errors: String[];
   id: number;
 
   constructor( 
-      private service: ClientesService ,
+      private service: ProdutosService,
       private router: Router,
       private activatedRoute : ActivatedRoute
       ) {
-    this.cliente = new Cliente();
+    this.produto = new Produto();
   }
 
   ngOnInit(): void {
@@ -31,24 +31,24 @@ export class ClientesFormComponent implements OnInit {
         this.id = urlParams['id'];
         if(this.id){
           this.service
-            .getClienteById(this.id)
+            .getProdutoById(this.id)
             .subscribe( 
-              response => this.cliente = response ,
-              errorResponse => this.cliente = new Cliente()
+              response => this.produto = response ,
+              errorResponse => this.produto = new Produto()
             )
         }
     })
   }
 
   voltarParaListagem(){
-    this.router.navigate(['/clientes/lista'])
+    this.router.navigate(['/produtos/lista'])
   }
 
   onSubmit(){
     if(this.id){
 
       this.service
-        .atualizar(this.cliente)
+        .atualizar(this.produto)
         .subscribe(response => {
             this.success = true;
             this.errors = null;
@@ -60,11 +60,11 @@ export class ClientesFormComponent implements OnInit {
     }else{
 
       this.service
-        .salvar(this.cliente)
+        .salvar(this.produto)
           .subscribe( response => {
             this.success = true;
             this.errors = null;
-            this.cliente = response;
+            this.produto = response;
           } , errorResponse => {
             this.success = false;
             this.errors = errorResponse.error.errors;

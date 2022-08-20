@@ -1,15 +1,23 @@
 package io.github.joelytonneto.systock.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import java.time.LocalDate;
 
-import org.hibernate.annotations.ColumnDefault;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.validation.constraints.NotEmpty;
+
 import org.hibernate.validator.constraints.br.CPF;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
@@ -64,7 +72,7 @@ public class Cliente {
     @Column(nullable = false)    
     private boolean ativo;
     
-    @Lob    
+    @Column(columnDefinition="TEXT")    
     private String observacoes;    
 
     @Column(name = "data_cadastro", updatable = false)

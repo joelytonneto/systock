@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms'
 
 import { ClientesRoutingModule } from './clientes-routing.module';
 import { ClientesFormComponent } from './clientes-form/clientes-form.component';
-import { ClientesListaComponent } from './clientes-lista/clientes-lista.component';
+import { ClientesListaComponent } from './clientes-lista/clientes-lista.component'; 
+import { ClientesService } from './clientes.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,8 @@ import { ClientesListaComponent } from './clientes-lista/clientes-lista.componen
   ], exports: [
     ClientesFormComponent,
     ClientesListaComponent
-  ]
+  ], providers: [
+    ClientesService
+  ],
 })
 export class ClientesModule { }

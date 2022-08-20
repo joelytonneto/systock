@@ -10,9 +10,9 @@ import io.github.joelytonneto.systock.model.entity.Cliente;
 import io.github.joelytonneto.systock.model.repository.ClienteRepository;
 
 @SpringBootApplication
-public class ClientesApplication {
+public class SystockApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ClientesApplication.class, args);
+        SpringApplication.run(SystockApplication.class, args);
     }
 }

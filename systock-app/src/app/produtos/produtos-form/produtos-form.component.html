@@ -1,0 +1,118 @@
+<h1 class="mt-4">Produtos</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{ produto.id ? 'Edição' : 'Cadastro' }}</li>
+</ol>
+<div class="container-fluid">
+    <form #clienteForm="ngForm" (ngSubmit)="onSubmit()" >
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Produto salvo/atualizado com sucesso!    
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro  }}    
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="produto.id">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>ID:</label>
+                    <input type="text" [ngModel]="produto.id" name="id" class="form-control" disabled="true" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Data Cadastro:</label>
+                    <input type="text" class="form-control" name="dataCadastro"
+                           [ngModel]="produto.dataCadastro" disabled="true"  />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Código EAN: *</label>
+                    <input type="text" class="form-control" 
+                           [(ngModel)]="produto.codigoEan" name="codigoEan"   />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Descrição:</label>
+                    <input type="text" class="form-control" 
+                           [(ngModel)]="produto.descricao" name="descricao"   />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="formControlSelectTipo">Tipo</label>
+                    <select class="form-control" id="formControlSelectTipo" [(ngModel)]="produto.tipo" [ngModelOptions]="{standalone: true}">
+                        <option [ngValue]="undefined" selected>SELECIONE</option>
+                        <option [ngValue]="'UND'">Unidade (UND)</option>
+                        <option [ngValue]="'KG'">Quilo (KG)</option>
+                    </select>
+                </div>
+            </div>      
+        </div>        
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Preço de Custo:</label>
+                    <input type="text" class="form-control" 
+                            [(ngModel)]="produto.precoCusto" name="precoCusto"/>
+                </div>
+            </div>            
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Preço de Venda:</label>
+                    <input type="text" class="form-control" 
+                            [(ngModel)]="produto.precoVenda" name="precoVenda"/>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label>Estoque: *</label>
+                    <input type="text" class="form-control" 
+                           [(ngModel)]="produto.estoque" name="estoque"/>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label>Ativo?</label>
+                    <div class="form-check">
+                        <input class="form-check-input largerCheckbox" type="checkbox" id="ativo" [(ngModel)]="produto.ativo" name="ativo">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="observacoesTextarea">Observação:</label>
+                    <textarea class="form-control" id="observacoesTextarea" rows="1" [(ngModel)]="produto.observacao" name="observacoes"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-2">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success" *ngIf="!produto.id">
+                    <i class="fa fa-save" ></i> Salvar
+                </button>
+
+                <button type="submit" class="btn btn-primary" *ngIf="produto.id">
+                    <i class="fa fa-sync-alt" ></i> Atualizar
+                </button>
+
+                <button type="button" class="btn btn-danger ml-3" (click)="voltarParaListagem()">
+                    <i class="fa fa-arrow-alt-circle-left" ></i> Voltar
+                </button>
+            </div>
+     
+        </div>
+    </form>
+</div>

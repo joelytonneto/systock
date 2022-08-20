@@ -1,4 +1,4 @@
-<h1 class="mt-4">Clientes</h1>
+<h1 class="mt-4">Produtos</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Consulta</li>
 </ol>
@@ -29,28 +29,28 @@
             <table class="table table-condensed table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Endereço</th>
-                        <th>Celular</th>
+                        <th>Código EAN</th>
+                        <th>Descrição</th>
+                        <th>Estoque</th>
+                        <th>Preço de Venda</th>
                         <th>Data Cadastro</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let cliente of clientes">
-                        <td>{{ cliente.id }}</td>
-                        <td>{{ cliente.nome }}</td>
-                        <td>{{ cliente.endereco }}</td>
-                        <td>{{ cliente.celular }}</td>
-                        <td>{{ cliente.dataCadastro }}</td>
+                    <tr *ngFor="let produto of produtos">
+                        <td>{{ produto.codigoEan }}</td>
+                        <td>{{ produto.descricao }}</td>
+                        <td>{{ produto.estoque }}</td>
+                        <td>{{ produto.precoVenda }}</td>
+                        <td>{{ produto.dataCadastro }}</td>
                         <td>
                             <button class="btn btn-primary" 
-                                    routerLink="/clientes/form/{{ cliente.id }}">
+                                    routerLink="/produtos/form/{{ produto.id }}">
                                 <i class="fa fa-edit"></i>
                             </button>
 
-                            <button class="btn btn-danger ml-1" (click)="preparaDelecao(cliente)" 
+                            <button class="btn btn-danger ml-1" (click)="preparaDelecao(produto)" 
                                     data-toggle="modal" data-target="#modalDelecao">
                                 <i class="fa fa-trash"></i>
                             </button>
@@ -69,12 +69,12 @@
                     <h4>Confirmação</h4>
                 </div>
 
-                <div class="modal-body" *ngIf="clienteSelecionado">
-                    Confirma a deleção do(a) Cliente {{ clienteSelecionado.nome }}?
+                <div class="modal-body" *ngIf="produtoSelecionado">
+                    Confirma a exclusão do(a) Produto {{ produtoSelecionado.descricao }}?
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-success" (click)="deletarCliente()"  
+                    <button class="btn btn-success" (click)="deletarProduto()"  
                             data-dismiss="modal">Confirmar</button>
                     <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 </div>
@@ -82,4 +82,3 @@
         </div>
     </div>
 </div>
-
