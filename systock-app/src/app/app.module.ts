@@ -16,6 +16,8 @@ import { LayoutComponent } from './layout/layout.component'
 import { AuthService } from './auth.service';
 import { TokenInterceptor } from './token.interceptor';
 import { ProdutosModule } from './produtos/produtos.module';
+import { EntregadoresModule } from './entregadores/entregadores.module';
+import { FormasPagamentosModule } from './formas-pagamentos/formasPagamentos.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ProdutosModule } from './produtos/produtos.module';
     TemplateModule,
     ClientesModule,
     ServicoPrestadoModule,
-    ProdutosModule
+    ProdutosModule,
+    EntregadoresModule,
+    FormasPagamentosModule
   ],
   providers: [
     ServicoPrestadoService,

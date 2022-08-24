@@ -1,0 +1,71 @@
+<h1 class="mt-4">Entregadores</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{ entregador.id ? 'Edição' : 'Cadastro' }}</li>
+</ol>
+<div class="container-fluid">
+    <form #entregadorForm="ngForm" (ngSubmit)="onSubmit()" >
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Entregador salvo/atualizado com sucesso!    
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro  }}    
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="entregador.id">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>ID:</label>
+                    <input type="text" [ngModel]="entregador.id" name="id" class="form-control" disabled="true" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Data Cadastro:</label>
+                    <input type="text" class="form-control" name="dataCadastro"
+                           [ngModel]="entregador.dataCadastro" disabled="true"  />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label>Nome:</label>
+                    <input type="text" class="form-control" 
+                           [(ngModel)]="entregador.nome" name="nome"   />
+                </div>
+            </div>                  
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Ativo?</label>
+                    <div class="form-check">
+                        <input class="form-check-input largerCheckbox" type="checkbox" id="ativo" [(ngModel)]="entregador.ativo" name="ativo">
+                    </div>
+                </div>
+            </div>        
+        </div>        
+
+        <div class="row pt-2">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success" *ngIf="!entregador.id">
+                    <i class="fa fa-save" ></i> Salvar
+                </button>
+
+                <button type="submit" class="btn btn-primary" *ngIf="entregador.id">
+                    <i class="fa fa-sync-alt" ></i> Atualizar
+                </button>
+
+                <button type="button" class="btn btn-danger ml-3" (click)="voltarParaListagem()">
+                    <i class="fa fa-arrow-alt-circle-left" ></i> Voltar
+                </button>
+            </div>
+     
+        </div>
+    </form>
+</div>
