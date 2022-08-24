@@ -11,7 +11,6 @@ export class Cliente {
     bairro: string;
     cidade: string;
     uf: string;
-    ativo: boolean;
-    observacoes: string;
+    ativo: boolean;    
     dataCadastro: string;
 }

@@ -70,8 +70,7 @@ public class ClienteController {
                     cliente.setBairro(clienteAtualizado.getBairro());
                     cliente.setCidade(clienteAtualizado.getCidade());
                     cliente.setUf(clienteAtualizado.getUf());
-                    cliente.setAtivo(clienteAtualizado.isAtivo());
-                    cliente.setObservacoes(clienteAtualizado.getObservacoes());
+                    cliente.setAtivo(clienteAtualizado.isAtivo());                    
                     return repository.save(cliente);
                 })
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado") );

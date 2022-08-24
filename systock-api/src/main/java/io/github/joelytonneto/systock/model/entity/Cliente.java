@@ -71,9 +71,6 @@ public class Cliente {
     
     @Column(nullable = false)    
     private boolean ativo;
-    
-    @Column(columnDefinition="TEXT")    
-    private String observacoes;    
 
     @Column(name = "data_cadastro", updatable = false)
     @JsonFormat(pattern = "dd/MM/yyyy")
