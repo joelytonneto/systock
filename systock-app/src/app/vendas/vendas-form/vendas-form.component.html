@@ -1,0 +1,154 @@
+<h1 class="mt-4">Venda</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrum-bitem active">Novo</li>
+</ol>
+<div class="container-fluid">
+    <form #form="ngForm" (submit)="onSubmit()" >
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Venda salva com sucesso!    
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro  }}    
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-9">
+                <div class="form-group">
+                    <label>Cliente: </label>
+                    <select class="form-control" 
+                            [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="venda.idCliente">
+                        <option value="">Selecione...</option>
+                        <option *ngFor="let cliente of clientes" 
+                                [ngValue]="cliente.id">
+                            {{ cliente.nome }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Data da Venda:</label>
+                    <input class="form-control" 
+                            [(ngModel)]="venda.dataVenda" type="text" 
+                            name="data" id="inputData">
+                </div>
+            </div>            
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="form-group">
+                    <label>Entregador: </label>
+                    <select class="form-control" 
+                            [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="venda.idEntregador">
+                        <option value="">Selecione...</option>
+                        <option *ngFor="let entregador of entregadores" 
+                                [ngValue]="entregador.id">
+                            {{ entregador.nome }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Taxa de Entrega:</label>
+                    <input class="form-control" 
+                            [(ngModel)]="venda.taxaEntrega" type="text" 
+                            name="preco" id="inputPreco">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Valor Bruto:</label>
+                    <input class="form-control" 
+                            [(ngModel)]="venda.valorBruto" type="text" 
+                            name="preco" id="inputPreco">
+                </div>
+            </div>            
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Desconto:</label>
+                    <input class="form-control" 
+                            [(ngModel)]="venda.desconto" type="text" 
+                            name="preco" id="inputPreco">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Valor Líquido:</label>
+                    <input class="form-control" 
+                            [(ngModel)]="venda.valorLiquido" type="text" 
+                            name="preco" id="inputPreco">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Valor Pago:</label>
+                    <input class="form-control" 
+                            [(ngModel)]="venda.valorPago" type="text" 
+                            name="preco" id="inputPreco">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Troco:</label>
+                    <input class="form-control" 
+                            [(ngModel)]="venda.troco" type="text" 
+                            name="preco" id="inputPreco">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Está Pago?</label>
+                    <input class="form-control" 
+                            [(ngModel)]="venda.pago" type="text" 
+                            name="preco" id="inputPreco">
+                </div>
+            </div>      
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="form-group">
+                    <label>Observação:</label>
+                    <input class="form-control" 
+                            [(ngModel)]="venda.observacao" type="text" 
+                            name="descricao" id="inputDescricao">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Status Pedido:</label>
+                    <input class="form-control" 
+                            [(ngModel)]="venda.statusPedido" type="text" 
+                            name="preco" id="inputPreco">
+                </div>
+            </div>            
+        </div>        
+
+        <div class="row pt-4">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-save"></i>
+                    Salvar
+                </button>
+
+                <button type="button" routerLink="/vendas/lista" 
+                        class="btn btn-danger ml-1" >
+                    <i class="fa fa-arrow-alt-circle-left" ></i> Voltar
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

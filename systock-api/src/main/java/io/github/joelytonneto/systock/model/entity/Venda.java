@@ -22,8 +22,8 @@ public class Venda {
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;	
 	
-	@Column(name = "data_venda", updatable = false)
-	@JsonFormat(pattern = "dd/MM/yyyy - HH:MM:SS")
+	@Column(name = "data_venda")
+	@JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataVenda;
 	
 	@Column(nullable = false)
@@ -63,10 +63,5 @@ public class Venda {
 	
 	@Column(nullable = false)
 	private boolean pago;
-
-    @PrePersist
-    public void prePersist(){
-        setDataVenda(LocalDate.now());
-    }
 
 }

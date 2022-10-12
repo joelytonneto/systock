@@ -8,8 +8,18 @@ import org.springframework.web.server.ResponseStatusException;
 import io.github.joelytonneto.systock.model.entity.Cliente;
 import io.github.joelytonneto.systock.model.repository.ClienteRepository;
 
+import javax.swing.JOptionPane;
 import javax.validation.Valid;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.Scanner;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -23,7 +33,7 @@ public class ClienteController {
     }
 
     @GetMapping
-    public List<Cliente> obterTodos(){
+    public List<Cliente> obterTodos(){    	
         return repository.findAll();
     }
 

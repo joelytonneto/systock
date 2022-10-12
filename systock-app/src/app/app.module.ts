@@ -18,6 +18,8 @@ import { TokenInterceptor } from './token.interceptor';
 import { ProdutosModule } from './produtos/produtos.module';
 import { EntregadoresModule } from './entregadores/entregadores.module';
 import { FormasPagamentosModule } from './formas-pagamentos/formasPagamentos.module';
+import { VendasModule } from './vendas/vendas.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { FormasPagamentosModule } from './formas-pagamentos/formasPagamentos.mod
     ServicoPrestadoModule,
     ProdutosModule,
     EntregadoresModule,
-    FormasPagamentosModule
+    FormasPagamentosModule,
+    VendasModule,
+    BrowserAnimationsModule
   ],
   providers: [
     ServicoPrestadoService,

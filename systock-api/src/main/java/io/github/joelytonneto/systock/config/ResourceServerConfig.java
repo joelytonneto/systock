@@ -19,7 +19,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/api/servicos-prestados/**",
                         "/api/produtos/**",
                         "/api/entregadores/**",
-                        "/api/formas-pagamentos/**").authenticated()
+                        "/api/formas-pagamentos/**",
+                        "/api/vendas/**").authenticated()
                 .anyRequest().denyAll();
 
         ;
