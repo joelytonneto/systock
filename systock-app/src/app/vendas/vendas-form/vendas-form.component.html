@@ -2,7 +2,7 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrum-bitem active">Novo</li>
 </ol>
-<div class="container-fluid">
+<div class="container-fluid p-0">
     <form #form="ngForm" (submit)="onSubmit()" >
 
         <div class="row">
@@ -16,125 +16,201 @@
             </div>
         </div>
         
-        <div class="row">
-            <div class="col-md-9">
-                <div class="form-group">
-                    <label>Cliente: </label>
-                    <select class="form-control" 
-                            [ngModelOptions]="{standalone: true}"
-                            [(ngModel)]="venda.idCliente">
-                        <option value="">Selecione...</option>
-                        <option *ngFor="let cliente of clientes" 
-                                [ngValue]="cliente.id">
-                            {{ cliente.nome }}
-                        </option>
-                    </select>
+        <div class="card border shadow mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label>Cliente: </label>
+                            <select class="form-control" 
+                                    [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="venda.idCliente">
+                                <option value="">Selecione...</option>
+                                <option *ngFor="let cliente of clientes" 
+                                        [ngValue]="cliente.id">
+                                    {{ cliente.nome }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Data da Venda:</label>
+                            <input class="form-control" 
+                                    [(ngModel)]="venda.dataVenda" type="text" 
+                                    name="data" id="inputData">
+                        </div>
+                    </div>            
+                </div>
+        
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label>Entregador: </label>
+                            <select class="form-control" 
+                                    [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="venda.idEntregador">
+                                <option value="">Selecione...</option>
+                                <option *ngFor="let entregador of entregadores" 
+                                        [ngValue]="entregador.id">
+                                    {{ entregador.nome }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Taxa de Entrega:</label>
+                            <input class="form-control" 
+                                    [(ngModel)]="venda.taxaEntrega" type="text" 
+                                    name="preco" id="inputPreco">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Valor Bruto:</label>
+                            <input class="form-control" 
+                                    [(ngModel)]="venda.valorBruto" type="text" 
+                                    name="preco" id="inputPreco">
+                        </div>
+                    </div>            
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Desconto:</label>
+                            <input class="form-control" 
+                                    [(ngModel)]="venda.desconto" type="text" 
+                                    name="preco" id="inputPreco">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Valor Líquido:</label>
+                            <input class="form-control" 
+                                    [(ngModel)]="venda.valorLiquido" type="text" 
+                                    name="preco" id="inputPreco">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Valor Pago:</label>
+                            <input class="form-control" 
+                                    [(ngModel)]="venda.valorPago" type="text" 
+                                    name="preco" id="inputPreco">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Troco:</label>
+                            <input class="form-control" 
+                                    [(ngModel)]="venda.troco" type="text" 
+                                    name="preco" id="inputPreco">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Está Pago?</label>
+                            <input class="form-control" 
+                                    [(ngModel)]="venda.pago" type="text" 
+                                    name="preco" id="inputPreco">
+                        </div>
+                    </div>      
+                </div>
+        
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label>Observação:</label>
+                            <input class="form-control" 
+                                    [(ngModel)]="venda.observacao" type="text" 
+                                    name="descricao" id="inputDescricao">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Status Pedido:</label>
+                            <input class="form-control" 
+                                    [(ngModel)]="venda.statusPedido" type="text" 
+                                    name="preco" id="inputPreco">
+                        </div>
+                    </div>            
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Data da Venda:</label>
-                    <input class="form-control" 
-                            [(ngModel)]="venda.dataVenda" type="text" 
-                            name="data" id="inputData">
-                </div>
-            </div>            
         </div>
-
+        
         <div class="row">
-            <div class="col-md-9">
-                <div class="form-group">
-                    <label>Entregador: </label>
-                    <select class="form-control" 
-                            [ngModelOptions]="{standalone: true}"
-                            [(ngModel)]="venda.idEntregador">
-                        <option value="">Selecione...</option>
-                        <option *ngFor="let entregador of entregadores" 
-                                [ngValue]="entregador.id">
-                            {{ entregador.nome }}
-                        </option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Taxa de Entrega:</label>
-                    <input class="form-control" 
-                            [(ngModel)]="venda.taxaEntrega" type="text" 
-                            name="preco" id="inputPreco">
-                </div>
+            <div class="col-md-12">
+                <div class="card border shadow">
+                    <div class="card-header">
+                        <h4>Produtos</h4>                                             
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label>Produto: </label>
+                                    <select class="form-control" 
+                                            [ngModelOptions]="{standalone: true}" [(ngModel)]="venda.produto">
+                                        <option *ngFor="let produto of produtos" 
+                                                [ngValue]="produto">
+                                            {{ produto.descricao }}
+                                        </option>
+                                    </select>                                
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Quantidade:</label>
+                                    <input class="form-control" 
+                                            [(ngModel)]="quantidadeVenda" type="text" 
+                                            name="quantidade" id="inputQuantidade">
+                                </div>
+                            </div>
+    
+                            <div class="col-md-1 mt-2 p-0">
+                                <button class="btn btn-success mt-4" type="button" (click)="addProduto()">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Código EAN</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Quantidade</th>
+                                <th scope="col">Valor Unitário</th>
+                                <th scope="col">Valor Total</th>
+                              </tr>
+                            </thead>
+                            <tbody id="outross">
+                              <tr *ngFor="let itevda of venda.itensVenda; let i = index;">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>{{ itevda.produto.codigoEan }}</td>
+                                <td>{{ itevda.produto.descricao }}</td>
+                                <td>{{ itevda.produto.tipo }}</td>
+                                <td>{{ itevda.quantidade | number }}</td>
+                                <td>{{ itevda.produto.precoVenda | currency : 'BRL' }}</td>
+                                <td>{{ (itevda.quantidade * itevda.produto.precoVenda) | currency : 'BRL' }}</td>
+                              </tr>                              
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th class="text-right" colspan="5" scope="col">Valor Total Compra:</th>                                    
+                                    <th class="text-left" colspan="1" scope="col">&nbsp;&nbsp;&nbsp;&nbsp; {{ valorTotalVenda | currency : 'BRL' }}</th>                                    
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>                
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>Valor Bruto:</label>
-                    <input class="form-control" 
-                            [(ngModel)]="venda.valorBruto" type="text" 
-                            name="preco" id="inputPreco">
-                </div>
-            </div>            
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>Desconto:</label>
-                    <input class="form-control" 
-                            [(ngModel)]="venda.desconto" type="text" 
-                            name="preco" id="inputPreco">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>Valor Líquido:</label>
-                    <input class="form-control" 
-                            [(ngModel)]="venda.valorLiquido" type="text" 
-                            name="preco" id="inputPreco">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>Valor Pago:</label>
-                    <input class="form-control" 
-                            [(ngModel)]="venda.valorPago" type="text" 
-                            name="preco" id="inputPreco">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>Troco:</label>
-                    <input class="form-control" 
-                            [(ngModel)]="venda.troco" type="text" 
-                            name="preco" id="inputPreco">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>Está Pago?</label>
-                    <input class="form-control" 
-                            [(ngModel)]="venda.pago" type="text" 
-                            name="preco" id="inputPreco">
-                </div>
-            </div>      
-        </div>
-
-        <div class="row">
-            <div class="col-md-9">
-                <div class="form-group">
-                    <label>Observação:</label>
-                    <input class="form-control" 
-                            [(ngModel)]="venda.observacao" type="text" 
-                            name="descricao" id="inputDescricao">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Status Pedido:</label>
-                    <input class="form-control" 
-                            [(ngModel)]="venda.statusPedido" type="text" 
-                            name="preco" id="inputPreco">
-                </div>
-            </div>            
-        </div>        
 
         <div class="row pt-4">
             <div class="col-md-3">

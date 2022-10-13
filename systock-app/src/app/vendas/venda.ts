@@ -1,8 +1,10 @@
+import { Produto } from "../produtos/produto";
 import { ItensVenda } from "./model/itensVenda";
 
 export class Venda {
     id: number;
     idCliente: number;
+    produto: Produto;
     dataVenda: string;
     valorBruto: number;
     desconto: number;

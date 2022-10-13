@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { FormsModule } from '@angular/forms'
 
@@ -20,6 +20,11 @@ import { EntregadoresModule } from './entregadores/entregadores.module';
 import { FormasPagamentosModule } from './formas-pagamentos/formasPagamentos.module';
 import { VendasModule } from './vendas/vendas.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import ptBr from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [
@@ -49,7 +54,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    { provide: LOCALE_ID, useValue: 'pt' },
   ],
   bootstrap: [AppComponent]
 })
