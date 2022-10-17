@@ -7,7 +7,7 @@ import { Venda } from '../venda';
 import { VendasService } from '../vendas.service'; 
 import { Produto } from 'src/app/produtos/produto';
 import { ProdutosService } from 'src/app/produtos/produtos.service';
-import jQuery from 'jquery'
+import jQuery from 'jquery';
 
 @Component({
   selector: 'app-vendas-form',
