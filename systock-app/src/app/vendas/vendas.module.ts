@@ -7,6 +7,8 @@ import { VendasRoutingModule } from './vendas-routing.module';
 import { VendasFormComponent } from './vendas-form/vendas-form.component'; 
 import { VendasListaComponent } from './vendas-lista/vendas-lista.component';
 
+import { DropdownModule } from 'primeng/dropdown';
+
 @NgModule({
   declarations: [
     VendasFormComponent,
@@ -16,7 +18,8 @@ import { VendasListaComponent } from './vendas-lista/vendas-lista.component';
     CommonModule,
     VendasRoutingModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    DropdownModule
   ], exports: [
     VendasFormComponent,
     VendasListaComponent

@@ -8,6 +8,8 @@ import { VendasService } from '../vendas.service';
 import { Produto } from 'src/app/produtos/produto';
 import { ProdutosService } from 'src/app/produtos/produtos.service';
 import jQuery from 'jquery';
+import { SelectItem } from 'primeng';
+import * as _ from "lodash";   
 
 @Component({
   selector: 'app-vendas-form',
@@ -29,6 +31,8 @@ export class VendasFormComponent implements OnInit {
   success: boolean = false;
   errors: String[];
 
+  produtosSelect: SelectItem[] = [];  
+
   constructor(
     private clienteService: ClientesService,
     private entregadorService: EntregadoresService,
@@ -36,7 +40,7 @@ export class VendasFormComponent implements OnInit {
     private service: VendasService
   ) { 
     this.valorTotalVenda = 0;
-    this.venda = new Venda();
+    this.venda = new Venda();     
   }
 
   ngOnInit(): void {
@@ -52,8 +56,12 @@ export class VendasFormComponent implements OnInit {
       .getProdutos()
       .subscribe( responseProdutos => {
         this.produtos = responseProdutos;
-        this.venda.produto = this.produtos[0];
+        this.produtos.forEach(produto => {
+          this.produtosSelect.push({ label: `${produto.codigoEan} - ${produto.descricao}`, value: produto });
+        });
       });
+
+    this.addEventInputQtd();   
 
   }
 
@@ -92,8 +100,24 @@ export class VendasFormComponent implements OnInit {
     }, 10);
 
     this.valorTotalVenda += (produto.precoVenda * this.quantidadeVenda);
+  }
 
-    console.log(this.venda.itensVenda);
+  focusQuantidade() {
+    jQuery('#inputQuantidade').focus();
+  }
+
+  addEventInputQtd() {
+    jQuery('#inputQuantidade').keypress((event) => {      
+      var keycode = (event.keyCode ? event.keyCode : event.which);
+      if(keycode == '13'){
+        event.preventDefault();
+        if(_.isNil(this.venda.produto)) {
+          alert('Escolha um item antes de adicionar a quantidade');
+        } else {
+          this.addProduto();
+        }
+      }
+    });
   }
 
 }

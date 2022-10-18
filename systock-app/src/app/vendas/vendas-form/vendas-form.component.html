@@ -151,12 +151,17 @@
                             <div class="col-md-9">
                                 <div class="form-group">
                                     <label>Produto: </label>
-                                    <select class="selectpicker form-control" data-style="btn-info" data-live-search="true" [ngModelOptions]="{standalone: true}" [(ngModel)]="venda.produto">
-                                        <option *ngFor="let produto of produtos" 
-                                                [ngValue]="produto">
-                                            {{ produto.codigoEan + ' - ' + produto.descricao }}
-                                        </option>
-                                    </select>
+                                    <div class="col-md-12 pl-0">
+                                        <p-dropdown
+                                            [options]="produtosSelect"
+                                            [(ngModel)]="venda.produto"
+                                            filter="true"
+                                            [style]="{'width':'100%'}"
+                                            [ngModelOptions]="{standalone: true}"
+                                            placeholder="SELECIONE O PRODUTO A SER VENDIDO"
+                                            (onHide)="focusQuantidade()">
+                                        </p-dropdown>
+                                    </div>                                   
                                 </div>
                             </div>
 
