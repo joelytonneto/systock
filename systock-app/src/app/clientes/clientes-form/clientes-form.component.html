@@ -3,146 +3,178 @@
     <li class="breadcrumb-item active">{{ cliente.id ? 'Edição' : 'Cadastro' }}</li>
 </ol>
 <div class="container-fluid">
-    <form #clienteForm="ngForm" (ngSubmit)="onSubmit()" >
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-success" role="alert" *ngIf="success == true">
-                    Cliente salvo/atualizado com sucesso!    
-                </div>
-                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
-                    {{ erro  }}    
-                </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert" *ngIf="success == true">
+                Cliente salvo/atualizado com sucesso!    
+            </div>
+            <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                {{ erro  }}    
             </div>
         </div>
+    </div>
+    <form class="form-clientes" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <mat-card>
+            <mat-form-field class="width50" *ngIf="cliente.id">
+              <mat-label>ID</mat-label>
+              <input 
+                matInput
+                formControlName="id">
+            </mat-form-field>
 
-        <div class="row" *ngIf="cliente.id">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>ID:</label>
-                    <input type="text" [ngModel]="cliente.id" name="id" class="form-control" disabled="true" />
-                </div>
-            </div>
+            <mat-form-field class="width50" *ngIf="cliente.id">
+              <mat-label>Data Cadastro</mat-label>
+              <input 
+                matInput
+                formControlName="dataCadastro">
+            </mat-form-field>
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Data Cadastro:</label>
-                    <input type="text" class="form-control" name="dataCadastro"
-                           [ngModel]="cliente.dataCadastro" disabled="true"  />
-                </div>
-            </div>
-        </div>
+            <mat-form-field class="width40">
+              <mat-label>Nome</mat-label>
+              <input 
+                matInput
+                placeholder="Ex. João da Silva"
+                formControlName="nome">
+              <mat-error *ngIf="formulario.get('nome')?.errors">
+                Nome é <strong>obrigatório</strong>
+              </mat-error>
+            </mat-form-field>
+          
+            <mat-form-field class="width20">
+              <mat-label>CPF</mat-label>
+              <input
+                mask="000.000.000-00"
+                matInput
+                placeholder="Ex. 999.999.999-99"
+                formControlName="cpf">
+              <mat-error *ngIf="formulario.get('cpf')?.errors">
+                CPF <strong>inválido</strong>
+              </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field class="width20">
+                <mat-label>Data Nascimento</mat-label>
+                <input
+                    matInput
+                    [matDatepicker]="picker"
+                    formControlName="dataNascimento"
+                    #inputDateMask
+                    id="inputDateMasker"
+                    (focus)="focusFunction()"
+                    (blur)="blurFunction()">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="formulario.get('dataNascimento')?.errors">
+                    Data de Nascimento <strong>inválida</strong>
+                </mat-error>
+            </mat-form-field>
+          
+            <mat-form-field class="width20">
+                <mat-label>Celular</mat-label>
+                <input
+                    mask="(00) 00000-0000"
+                    matInput
+                    placeholder="Ex. (85) 99999-9999"
+                    formControlName="celular">
+                <mat-error *ngIf="formulario.get('celular')?.errors">
+                    Celular é <strong>obrigatório</strong>
+                </mat-error>
+            </mat-form-field>
 
-        <div class="row">
-            <div class="col-md-5">
-                <div class="form-group">
-                    <label>Nome: *</label>
-                    <input type="text" class="form-control" 
-                           [(ngModel)]="cliente.nome" name="nome"   />
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>CPF:</label>
-                    <input type="text" class="form-control" 
-                           [(ngModel)]="cliente.cpf" name="cpf"   />
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>Data de Nascimento:</label>
-                    <input type="date" class="form-control" 
-                            [(ngModel)]="cliente.dataNascimento" name="nascimento"  />
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Celular: *</label>
-                    <input type="text" class="form-control" 
-                            [(ngModel)]="cliente.celular" name="celular"  />
-                </div>
-            </div>           
-                        
-        </div>        
+            <mat-form-field class="width20">
+                <mat-label>Cep</mat-label>
+                <input
+                    mask="00000-000"
+                    matInput
+                    placeholder="Ex. 00000-000"
+                    [(ngModel)]="cliente.cep"
+                    formControlName="cep"
+                    (ngModelChange)="cepSearch(cliente.cep)">
+            </mat-form-field>
 
-        <div class="row">
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>Cep:</label>
-                    <input type="text" class="form-control" 
-                            [(ngModel)]="cliente.cep" name="cep"  />
-                </div>
-            </div>            
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Endereço: *</label>
-                    <input type="text" class="form-control" 
-                            [(ngModel)]="cliente.endereco" name="endereco"  />
-                </div>
-            </div>
-            <div class="col-md-1">
-                <div class="form-group">
-                    <label>Nº: *</label>
-                    <input type="text" class="form-control" 
-                           [(ngModel)]="cliente.numero" name="numero"   />
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Complemento:</label>
-                    <input type="text" class="form-control" 
-                           [(ngModel)]="cliente.complemento" name="complemento"   />
-                </div>
-            </div>
-        </div>
+            <mat-form-field class="width40">
+                <mat-label>Endereço</mat-label>
+                <input
+                    matInput
+                    placeholder="Ex. Rua das Goiabeiras"                    
+                    formControlName="endereco">
+                <mat-error *ngIf="formulario.get('endereco')?.errors">
+                    Endereço é <strong>obrigatório</strong>
+                </mat-error>
+            </mat-form-field>
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Bairro: *</label>
-                    <input type="text" class="form-control" 
-                           [(ngModel)]="cliente.bairro" name="bairro"   />
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Cidade:</label>
-                    <input type="text" class="form-control" 
-                           [(ngModel)]="cliente.cidade" name="cidade"   />
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>UF:</label>
-                    <input type="text" class="form-control" 
-                            [(ngModel)]="cliente.uf" name="uf"  />
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label>Ativo?</label>
-                    <div class="form-check">
-                        <input class="form-check-input largerCheckbox" type="checkbox" id="ativo" [(ngModel)]="cliente.ativo" name="ativo">
-                    </div>
-                </div>
-            </div>
-        </div>
+            <mat-form-field class="width10">
+                <mat-label>Nº</mat-label>
+                <input
+                    matInput
+                    placeholder="Ex. 123"
+                    formControlName="numero">
+                <mat-error *ngIf="formulario.get('numero')?.errors">
+                    Número é <strong>obrigatório</strong>
+                </mat-error>
+            </mat-form-field>
 
-        <div class="row pt-2">
-            <div class="col-md-3">
-                <button type="submit" class="btn btn-success" *ngIf="!cliente.id">
-                    <i class="fa fa-save" ></i> Salvar
-                </button>
+            <mat-form-field class="width30">
+                <mat-label>Complemento</mat-label>
+                <input
+                    matInput
+                    placeholder="Ex. Casa Próximo a Farmácia"
+                    formControlName="complemento">
+            </mat-form-field>
 
-                <button type="submit" class="btn btn-primary" *ngIf="cliente.id">
-                    <i class="fa fa-sync-alt" ></i> Atualizar
-                </button>
+            <mat-form-field class="width30">
+                <mat-label>Bairro</mat-label>
+                <input
+                    matInput
+                    placeholder="Ex. Bairro Alto Alegre"
+                    formControlName="bairro">
+                <mat-error *ngIf="formulario.get('bairro')?.errors">
+                    Bairro é <strong>obrigatório</strong>
+                </mat-error>
+            </mat-form-field>
 
-                <button type="button" class="btn btn-danger ml-3" (click)="voltarParaListagem()">
-                    <i class="fa fa-arrow-alt-circle-left" ></i> Voltar
-                </button>
-            </div>
-     
-        </div>
-    </form>
+            <mat-form-field class="width30">
+                <mat-label>Cidade</mat-label>
+                <input
+                    matInput
+                    placeholder="Ex. Fortaleza"
+                    formControlName="cidade">
+                <mat-error *ngIf="formulario.get('cidade')?.errors">
+                    Cidade é <strong>obrigatório</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="width20">
+                <mat-label>UF</mat-label>
+                <input
+                    matInput
+                    placeholder="Ex. CE"
+                    formControlName="uf">
+                <mat-error *ngIf="formulario.get('uf')?.errors">
+                    UF é <strong>obrigatório</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-checkbox 
+                class="width20"
+                [(ngModel)]="cliente.ativo"
+                formControlName="ativo">{{ cliente.ativo ? 'Ativo' : 'Inativo' }}                
+            </mat-checkbox>            
+
+            <br/><br/>
+            
+            <button type="submit" class="mr-2" mat-raised-button color="primary" *ngIf="!cliente.id">
+                <i class="fa fa-save"></i> Salvar
+            </button>
+
+            <button type="submit" class="mr-2" mat-raised-button color="primary" *ngIf="cliente.id">
+                <i class="fa fa-sync-alt" ></i> Atualizar
+            </button>
+
+            <button mat-raised-button color="warn" (click)="voltarParaListagem()">
+                <i class="fa fa-arrow-alt-circle-left" ></i> Voltar
+            </button>
+
+        </mat-card>
+    </form>    
 </div>

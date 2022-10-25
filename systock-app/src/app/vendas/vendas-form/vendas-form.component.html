@@ -191,6 +191,7 @@
                                 <th scope="col">Quantidade</th>
                                 <th scope="col">Valor Unitário</th>
                                 <th scope="col">Valor Total</th>
+                                <th scope="col">Cancelar Item</th>
                               </tr>
                             </thead>
                             <tbody id="outross">
@@ -202,6 +203,7 @@
                                 <td>{{ itevda.quantidade | number }}</td>
                                 <td>{{ itevda.produto.precoVenda | currency : 'BRL' }}</td>
                                 <td>{{ (itevda.quantidade * itevda.produto.precoVenda) | currency : 'BRL' }}</td>
+                                <td>CAN</td>
                               </tr>                              
                             </tbody>
                             <tfoot>

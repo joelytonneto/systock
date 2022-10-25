@@ -84,22 +84,30 @@ export class VendasFormComponent implements OnInit {
   }
 
   addProduto() {
-    let produto = this.venda.produto;
+    if(_.isNil(this.venda.produto)) {
+      alert('Escolha um item antes de adicionar a quantidade');
+    } else {
+      if(_.isNil(this.quantidadeVenda) || (this.quantidadeVenda <= 0)) {
+        alert('A quantidade precisa ser maior que 0');
+      } else {
+        let produto = this.venda.produto;
 
-    this.venda.itensVenda.push({                    
-      id: null,
-      venda: null,
-      produto: produto,
-      dataRegistro: null,
-      valor: produto.precoVenda,
-      quantidade: this.quantidadeVenda
-    });
+        this.venda.itensVenda.push({                    
+          id: null,
+          venda: null,
+          produto: produto,
+          dataRegistro: null,
+          valor: produto.precoVenda,
+          quantidade: this.quantidadeVenda
+        });
 
-    jQuery('tbody').animate({
-      scrollTop: jQuery("tbody")[0].scrollHeight
-    }, 10);
+        jQuery('tbody').animate({
+          scrollTop: jQuery("tbody")[0].scrollHeight
+        }, 10);
 
-    this.valorTotalVenda += (produto.precoVenda * this.quantidadeVenda);
+        this.valorTotalVenda += (produto.precoVenda * this.quantidadeVenda);
+      }
+    }
   }
 
   focusQuantidade() {
@@ -111,11 +119,7 @@ export class VendasFormComponent implements OnInit {
       var keycode = (event.keyCode ? event.keyCode : event.which);
       if(keycode == '13'){
         event.preventDefault();
-        if(_.isNil(this.venda.produto)) {
-          alert('Escolha um item antes de adicionar a quantidade');
-        } else {
-          this.addProduto();
-        }
+        this.addProduto();        
       }
     });
   }

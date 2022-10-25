@@ -2,3 +2,36 @@ input.largerCheckbox {
     width: 25px;
     height: 25px;
 }
+
+.form-clientes {
+    width: 100%;
+}
+
+.width10 {
+    width: 10%;
+    padding-right: 20px;
+}
+
+.width20 {
+    width: 20%;
+    padding-right: 20px;
+}
+
+.width30 {
+    width: 30%;
+    padding-right: 20px;
+}
+
+.width40 {
+    width: 40%;
+    padding-right: 20px;
+}
+
+.width50 {
+    width: 50%;
+    padding-right: 20px;
+}
+
+#inputDateMasker {
+    color: transparent;    
+}

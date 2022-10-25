@@ -17,8 +17,22 @@ import io.github.joelytonneto.systock.model.repository.VendaRepository;
 import io.github.joelytonneto.systock.rest.dto.VendaDTO;
 import io.github.joelytonneto.systock.util.BigDecimalConverter;
 
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.JobName;
+import javax.print.attribute.standard.MediaSizeName;
+import javax.print.attribute.standard.OrientationRequested;
+import javax.swing.JOptionPane;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -39,6 +53,31 @@ public class VendaController  {
     
     @GetMapping
 	public List<Venda> obterTodos(){
+//    	String textoImpressora = 
+//      		  "------------------------------------------------\n\r"
+//              + "                CUPOM NAO FISCAL                \n\r"
+//              + "                                                \n\r"                
+//              + "                                                \n\r"
+//              + "------------------------------------------------\n\r"
+//              + "# | COD| DESC| QTD| VL UN R$|   VL TOTAL ITEM   \n\r"
+//              + "------------------------------------------------\n\r"
+//              + "------------------------------------------------\n\r"
+//              + "                CUPOM NAO FISCAL                \n\r"
+//              + "                                                \n\r"                
+//              + "                                                \n\r"
+//              + "------------------------------------------------\n\r"
+//              + "# | COD| DESC| QTD| VL UN R$|   VL TOTAL ITEM   \n\r"
+//              + "------------------------------------------------\n\r"
+//              + "------------------------------------------------\n\r"
+//              + "                CUPOM NAO FISCAL                \n\r"
+//              + "                                                \n\r"                
+//              + "                                                \n\r"
+//              + "------------------------------------------------\n\r"
+//              + "# | COD| DESC| QTD| VL UN R$|   VL TOTAL ITEM   \n\r"
+//              + "------------------------------------------------\n\r"
+//              + (char) 27 + (char) 109 + "";
+//      
+//    	this.imprimirPedido(textoImpressora);      
 		return vendaRepository.findAll();
 	}
 
@@ -103,6 +142,38 @@ public class VendaController  {
     	});
     	
     	return novaLista;
+    }
+    
+    private void imprimirPedido(String pTexto) {
+        try {
+            InputStream prin = new ByteArrayInputStream(pTexto.getBytes());
+            DocFlavor docFlavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
+            SimpleDoc documentoTexto = new SimpleDoc(prin, docFlavor, null);
+            PrintService[] impressora = PrintServiceLookup.lookupPrintServices(docFlavor, null);
+            // pega a //impressora padrão
+            PrintRequestAttributeSet printerAttributes = new HashPrintRequestAttributeSet();
+            printerAttributes.add(new JobName("Impressao", null));
+            printerAttributes.add(OrientationRequested.PORTRAIT);
+            printerAttributes.add(MediaSizeName.ISO_A4);
+            // informa o tipo da folha            
+            for (PrintService p : impressora) {
+                DocPrintJob printJob = p.createPrintJob();
+                try {
+                    if (p.getName().contains("PRODUCAO")) {
+                        printJob.print(documentoTexto, (PrintRequestAttributeSet) printerAttributes);
+                        //tenta imprimir
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Não foi possível realizar a impressão !!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    // mostra //mensagem de erro
+                }
+            }
+
+            prin.close();
+
+        } catch (Exception e) {
+
+        }
     }
 
 //    @GetMapping
