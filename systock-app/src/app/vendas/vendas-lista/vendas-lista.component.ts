@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VendasBusca } from './vendasBusca';
 import { VendasService } from '../vendas.service';
+import { ptbr } from 'src/app/utils/calendar-prime-ng';
 
 @Component({
   selector: 'app-vendas-lista',
@@ -9,10 +10,14 @@ import { VendasService } from '../vendas.service';
 })
 export class VendasListaComponent implements OnInit {
 
+  periodoInicialDataVenda: Date = new Date();
+  periodoFinalDataVenda: Date = new Date();
+  ptbr = ptbr;
+
   nome: string;
   mes: number;
   meses: number[];
-  lista: VendasBusca[];
+  listaVendas: VendasBusca[];
   message: string;
 
   constructor(
@@ -24,12 +29,12 @@ export class VendasListaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  consultar(){
+  consultar(){    
     this.service
-      .getVendas()
+      .getVendas(this.periodoInicialDataVenda, this.periodoFinalDataVenda)
       .subscribe(response => {
-        this.lista = response;
-        if( this.lista.length <= 0 ){
+        this.listaVendas = response;
+        if( this.listaVendas.length <= 0 ){
           this.message = "Nenhum Registro encontrado.";
         }else{
           this.message = null;

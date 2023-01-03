@@ -8,12 +8,13 @@ import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import io.github.joelytonneto.systock.model.entity.Cliente;
 import io.github.joelytonneto.systock.model.entity.ItensVenda;
+import io.github.joelytonneto.systock.model.entity.Pagamento;
 
 @Data
 @NoArgsConstructor
-public class VendaDTO {	
-	@NotNull(message = "{campo.cliente.obrigatorio}")
+public class VendaDTO {
 	private Integer idCliente;
 	
     @NotEmpty(message = "{campo.data.obrigatorio}")
@@ -48,5 +49,9 @@ public class VendaDTO {
     private boolean pago;
     
     private List<ItensVenda> itensVenda;
+    
+    private List<Pagamento> pagamentosVenda;
+    
+    private Cliente enderecoVenda;
 
 }

@@ -2,69 +2,112 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrum-bitem active">Consulta</li>
 </ol>
-<div class="container-fluid">
-    <form #consultaForm="ngForm" (submit)="consultar()">
-        <div class="row">
-            <div class="col-md-6">
-                <label for="inputNome">Nome Cliente:</label>
-                <input type="text" [(ngModel)]="nome" 
-                       name="nome" class="form-control"
-                       id="inputNome">
-            </div>
 
-            <div class="col-md-6">
-                <label for="inputMes">Mês:</label>
-                <select [(ngModel)]="mes" class="form-control" name="mes">
-                    <option value="">Selecione...</option>
-                    <option *ngFor="let mes of meses" [value]="mes">
-                        {{ mes }}
-                    </option>
-                </select>
-            </div>
+<div class="card border shadow mb-2">
+    <div class="card-header pb-0">
+        <h4>Painel de Vendas</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">            
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="periodo-inicial">Período Inicial:</label>
+                    <div class="col-md-12 pl-0 pr-0">
+                        <p-calendar
+                            [(ngModel)]="periodoInicialDataVenda"
+                            dateFormat="dd/mm/yy"
+                            readonlyInput="true"
+                            [monthNavigator]="true"
+                            [yearNavigator]="true"
+                            yearRange="2000:2030"
+                            showButtonBar="true"
+                            name="periodo-inicial"
+                            [locale]="ptbr"
+                            showIcon="true"                                    
+                            [style]="{'width':'100%'}"
+                            [inputStyle]="{'width':'90%'}">
+                        </p-calendar>
+                    </div>
+                </div>
+            </div>            
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="periodo-final">Período Final:</label>
+                    <div class="col-md-12 pl-0 pr-0">
+                        <p-calendar
+                            [(ngModel)]="periodoFinalDataVenda"
+                            dateFormat="dd/mm/yy"
+                            readonlyInput="true"
+                            [monthNavigator]="true"
+                            [yearNavigator]="true"
+                            yearRange="2000:2030"
+                            showButtonBar="true"
+                            name="periodo-final"
+                            [locale]="ptbr"
+                            showIcon="true"                                    
+                            [style]="{'width':'100%'}"
+                            [inputStyle]="{'width':'90%'}">
+                        </p-calendar>
+                    </div>
+                </div>
+            </div>            
         </div>
-
-        <br />
-
         <div class="row">
             <div class="col-md-4">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-sm btn-primary mr-2" (click)="consultar()">
                     <i class="fa fa-search"></i> Consultar
                 </button>
 
                 <button type="button" 
                         routerLink="/vendas/form"
-                        class="btn btn-warning ml-1">
+                        class="btn btn-sm btn-warning ml-1">
                     <i class="fa fa-plus"></i> Novo
                 </button>
             </div>
         </div>
-    </form>
+    </div>
+</div>
 
-    <br />
-    <div class="row">
-        <div class="alert alert-warning" role="alert" *ngIf="message">
-            {{ message }}   
-        </div>
-        <div class="col-md-12">
-            <table class="table">
+<div class="card border shadow">
+    <div class="card-header pb-0 mb-0">
+        <h4 class="pb-0 mb-2 mt-0 pt-0">Resultado da Consulta</h4>
+    </div>
+    <div class="card-body mt-0 mb-0 pt-0 pb-0 pl-0 pr-0">        
+        <div class="row col-md-12 ml-0">
+            <div class="alert alert-warning w-100 mt-3" role="alert" *ngIf="message">
+                {{ message }}   
+            </div>            
+            <table class="table table-sm">
                 <thead>
                     <tr>
+                        <th>ID Venda</th>
                         <th>Cliente</th>
-                        <th>Descrição</th>
-                        <th>Preço</th>
+                        <th>R$ Valor</th>
+                        <th>Pago?</th>
                         <th>Data</th>
+                        <th>Status</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let s of lista" >
-                        <td>{{ s.cliente.nome }} </td>
-                        <td>{{ s.descricao }} </td>
-                        <td>{{ s.valor }} </td>
-                        <td>{{ s.data }} </td>
+                    <tr *ngFor="let venda of listaVendas" >
+                        <td>{{ venda?.id }} </td>
+                        <td>{{ venda?.cliente?.nome || 'CLIENTE NÃO IDENTIFICADO' }} </td>
+                        <td>{{ venda?.valorLiquido | currency: 'BRL' }} </td>
+                        <td>{{ venda?.pago ? 'SIM' : 'NÃO' }} </td>
+                        <td>{{ venda?.dataVenda }} </td>
+                        <td>{{ venda?.statusPedido }} </td>
+                        <td>
+                            <button
+                                type="button"
+                                routerLink="/vendas/form/{{ venda.id }}"
+                                class="btn btn-sm btn-danger ml-1">
+                                    <i class="fa fa-edit"></i>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-            
         </div>
     </div>
 </div>

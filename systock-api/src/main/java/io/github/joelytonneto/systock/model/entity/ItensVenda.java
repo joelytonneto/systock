@@ -41,8 +41,8 @@ public class ItensVenda {
 	@DecimalMin(value = "0", message = "{campo.quantidade.obrigatorio}")
 	private Double quantidade;
 	
-	@Column(name = "data_registro", updatable = false)
-	@JsonFormat(pattern = "dd/MM/yyyy - HH:MM:SS")
+	@Column(name = "data_registro", updatable = false)	
+	@JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataRegistro;
 
     @PrePersist

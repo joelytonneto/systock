@@ -8,11 +8,14 @@ import org.springframework.web.server.ResponseStatusException;
 import io.github.joelytonneto.systock.model.entity.Cliente;
 import io.github.joelytonneto.systock.model.entity.Entregador;
 import io.github.joelytonneto.systock.model.entity.ItensVenda;
+import io.github.joelytonneto.systock.model.entity.Pagamento;
 import io.github.joelytonneto.systock.model.entity.Produto;
+import io.github.joelytonneto.systock.model.entity.ServicoPrestado;
 import io.github.joelytonneto.systock.model.entity.Venda;
 import io.github.joelytonneto.systock.model.repository.ClienteRepository;
 import io.github.joelytonneto.systock.model.repository.EntregadorRepository;
 import io.github.joelytonneto.systock.model.repository.ItensVendaRepository;
+import io.github.joelytonneto.systock.model.repository.PagamentoRepository;
 import io.github.joelytonneto.systock.model.repository.VendaRepository;
 import io.github.joelytonneto.systock.rest.dto.VendaDTO;
 import io.github.joelytonneto.systock.util.BigDecimalConverter;
@@ -36,6 +39,7 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -48,11 +52,27 @@ public class VendaController  {
     private final EntregadorRepository entregadorRepository;
     private final VendaRepository vendaRepository;
     private final ItensVendaRepository itensVendaRepository;
+    private final PagamentoRepository pagamentoRepository;
     
     private final BigDecimalConverter bigDecimalConverter;
     
+    @GetMapping("{id}")
+    public Venda getById( @PathVariable Integer id ){
+        return vendaRepository
+                .findById(id)
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Venda não encontrada") );
+    }
+    
     @GetMapping
-	public List<Venda> obterTodos(){
+    public List<Venda> getVendasFiltro(
+    		@RequestParam(value = "periodoInicial", required = true) Date periodoInicial,
+    		@RequestParam(value = "periodoFinal", required = true) Date periodoFinal
+    ) {
+    	return vendaRepository.findByPeriodoVendas(periodoInicial, periodoFinal);
+    }
+    
+//    @GetMapping
+//	public List<Venda> obterTodos(){
 //    	String textoImpressora = 
 //      		  "------------------------------------------------\n\r"
 //              + "                CUPOM NAO FISCAL                \n\r"
@@ -78,8 +98,8 @@ public class VendaController  {
 //              + (char) 27 + (char) 109 + "";
 //      
 //    	this.imprimirPedido(textoImpressora);      
-		return vendaRepository.findAll();
-	}
+//		return vendaRepository.findAll();
+//	}
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -87,13 +107,17 @@ public class VendaController  {
         LocalDate data = LocalDate.parse(dto.getDataVenda(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         Integer idCliente = dto.getIdCliente();
         Integer idEntregador = dto.getIdEntregador();
-
-        Cliente cliente =
-                clienteRepository
-                        .findById(idCliente)
-                        .orElseThrow(() ->
-                                new ResponseStatusException(
-                                        HttpStatus.BAD_REQUEST, "Cliente inexistente."));
+        
+        Cliente cliente;
+        if(idCliente != null) {
+        	cliente = clienteRepository
+                            .findById(idCliente)
+                            .orElseThrow(() ->
+                                    new ResponseStatusException(
+                                            HttpStatus.BAD_REQUEST, "Cliente inexistente."));        	
+        } else {
+        	cliente = null;
+        }        
         
         Entregador entregador =
                 entregadorRepository
@@ -113,36 +137,39 @@ public class VendaController  {
         venda.setValorPago(bigDecimalConverter.converter(dto.getValorPago()));
         venda.setTroco(bigDecimalConverter.converter(dto.getTroco()));
         venda.setEntregador(entregador);
-        venda.setTaxaEntrega(bigDecimalConverter.converter(dto.getTroco()));
+        venda.setTaxaEntrega(bigDecimalConverter.converter(dto.getTaxaEntrega()));
         venda.setObservacao(dto.getObservacao());
         venda.setStatusPedido(dto.getStatusPedido());
         venda.setPago(dto.isPago());
         
         vendaRepository.save(venda);
         
-        Venda ultimaVenda = vendaRepository.findTopByOrderByIdDesc();
+        List<ItensVenda> itensVenda = dto.getItensVenda();
         
-        salvarItens(dto.getItensVenda(), ultimaVenda);
-        
-        return ultimaVenda;
-    }
-    
-    public ItensVenda salvarItens (List<ItensVenda> itensVenda, Venda ultimaVenda) {
-    	
-    	ItensVenda novaLista = new ItensVenda();
-    	
-    	itensVenda.forEach(item -> {
+        itensVenda.forEach(item -> {
     		ItensVenda iteVda = new ItensVenda();
     		iteVda.setDataRegistro(item.getDataRegistro());
     		iteVda.setQuantidade(item.getQuantidade());
     		iteVda.setValor(item.getValor());
     		iteVda.setProduto(item.getProduto());
-    		iteVda.setVenda(ultimaVenda);    		    		
+    		iteVda.setVenda(venda);    		    		
     		itensVendaRepository.save(iteVda);
     	});
-    	
-    	return novaLista;
-    }
+        
+        List<Pagamento> pagamentosVenda = dto.getPagamentosVenda();
+        
+        if(dto.isPago()) {
+        	pagamentosVenda.forEach(item -> {
+        		Pagamento pagamentoVda = new Pagamento();
+        		pagamentoVda.setVenda(venda);
+        		pagamentoVda.setFormaPagamento(item.getFormaPagamento());
+        		pagamentoVda.setValor(item.getValor());
+        		pagamentoRepository.save(pagamentoVda);
+        	});        	
+        }
+        
+        return venda;
+    }  
     
     private void imprimirPedido(String pTexto) {
         try {

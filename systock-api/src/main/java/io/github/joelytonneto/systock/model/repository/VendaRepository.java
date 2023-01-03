@@ -1,12 +1,12 @@
 package io.github.joelytonneto.systock.model.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import io.github.joelytonneto.systock.model.entity.ServicoPrestado;
 import io.github.joelytonneto.systock.model.entity.Venda;
 
 public interface VendaRepository extends JpaRepository<Venda, Integer> {
@@ -16,5 +16,10 @@ public interface VendaRepository extends JpaRepository<Venda, Integer> {
     List<Venda> findByNomeClienteAndMes(
             @Param("nome") String nome, @Param("mes") Integer mes);
 	
-	Venda findTopByOrderByIdDesc();
+    @Query(" select v from Venda v" +
+            " where data_venda between :periodoInicial and :periodoFinal order by data_venda asc")
+    List<Venda> findByPeriodoVendas(
+            @Param("periodoInicial") Date periodoInicial, @Param("periodoFinal") Date periodoFinal);
+	
+//	Venda findTopByOrderByIdDesc(); //Pegar Última Transação Incluída na Tabela
 }

@@ -38,7 +38,6 @@ public class Pagamento {
 	private BigDecimal valor;
 	
 	@Column(name = "data_pagamento", updatable = false)
-	@JsonFormat(pattern = "dd/MM/yyyy - HH:MM:SS")
     private LocalDate dataPagamento;
 
     @PrePersist
